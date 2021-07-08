@@ -19,8 +19,6 @@ var output = make(<-chan Task)
 var inQueue []Task
 var curTask = Task{Status: StatusNone}
 
-const testingInterval = 30
-
 func Init() {
 	input, output = MakeUnboundedQueue()
 
@@ -84,7 +82,7 @@ func readMetadata(input string) ShortInputMetadata {
 	probeOutput := ProbeOutput{}
 	m := ShortInputMetadata{}
 
-	json.Unmarshal([]byte(stdOut.String()), &probeOutput)
+	json.Unmarshal(stdOut.Bytes(), &probeOutput)
 
 	size, _ := strconv.Atoi(probeOutput.Format.Size)
 	videCodec := probeOutput.Streams[0].CodecName
@@ -140,7 +138,7 @@ func getRenditions(width int, height int, aspectRatio string) []Rendition {
 func getHLSCommands(task Task, renditions []Rendition) []string {
 	commands := []string{}
 
-	homePath := "/home/nickolas/encoded_videos"
+	homePath := GetEncoderEnv().OutputPath
 	folder := fmt.Sprintf("%d", task.ID)
 	segmentDuration := "4"
 
