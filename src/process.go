@@ -153,10 +153,11 @@ func getHLSCommands(task Task, renditions []Rendition) []string {
 			s += "-c:v h264" + " "
 		}
 
+		s += "-sn" + " "
 		s += "-profile:v main" + " "
-		s += "-crf 30" + " "
+		s += "-crf 25" + " "
 		s += "-sc_threshold 0" + " "
-		s += "-vf scale=" + fmt.Sprintf("%d", r.Height) + ":-2" + " "
+		s += "-vf scale=" + fmt.Sprintf("%d", r.Width) + ":-2" + " "
 		s += "-hls_time " + segmentDuration + " "
 		s += "-hls_playlist_type vod" + " "
 		s += "-hls_segment_filename "
