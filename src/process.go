@@ -156,6 +156,8 @@ func getHLSCommands(task Task, renditions []Rendition) []string {
 		s += "-sn" + " "
 		s += "-profile:v main" + " "
 		s += "-crf 25" + " "
+		s += "-pix_fmt yuv420p" + " "
+		s += "-movflags +faststart" + " "
 		s += "-sc_threshold 0" + " "
 		s += "-vf scale=" + fmt.Sprintf("%d", r.Width) + ":-2" + " "
 		s += "-hls_time " + segmentDuration + " "
